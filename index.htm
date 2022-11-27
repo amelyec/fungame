@@ -1,0 +1,158 @@
+<html>
+   <head>
+      <title>May be you can do it again!</title>
+      <style type="text/css">
+td{mouse: hover;}
+      </style>
+      <script>
+
+
+         
+var app = {
+"name": "Anagram",
+"version": "0",
+"release": "0",
+"array1":[],
+"array2":[],
+"array3":["A","B"],
+"counter": 0,
+"data": null,
+"finalist": 0
+};
+
+
+
+
+app.newword = function(word = "")
+{
+var q = "" + word.length;
+app.finalist = parseInt(q)*2 - parseInt(parseInt(q)/2);
+
+//alert(app.finalist);
+var i;
+if(word.length > 0)
+{
+for(i=0; i<word.length; i++)
+{
+app.array3[i] = word[i].toUpperCase();
+}
+}
+//console.log(app.towords(app.array3));
+//console.log("YES");
+//console.log("NO");
+app.array2.length = word.length;
+
+}
+
+
+
+
+
+app.compare = function(letter = "")
+{
+var i, x=app.array3.length - 1;
+for(i=0; i<app.array3.length; i++)
+{
+if(app.array3[i] === letter && app.array2[i] !== letter)
+{
+app.array2[i] = letter;
+break;
+}
+else x--;
+}
+if(x < 0)
+app.array1.push(letter);
+
+app.counter++;
+console.log(app.counter);
+
+document.getElementById("id01").innerHTML = 'WIN: ' + app.towords(app.array2);
+document.getElementById("id02").innerHTML = 'LOSS: ' + app.towords(app.array1);
+
+console.log("WIN: " + app.towords(app.array2));
+console.log("LOSS: " + app.towords(app.array1));
+if(app.counter >= app.finalist)app.gameover();
+}
+
+
+
+
+
+app.towords = function(arr = [])
+{
+var word = "";
+if(arr !== [])
+{
+var i;
+for(i=0; i<arr.length; i++)
+{
+if(arr[i] === undefined)
+word+= ' _ ';
+else
+word+= arr[i];
+}
+}
+return word;
+}
+
+
+app.gameover = function()
+{
+var i;
+for(i=0; i<app.data.length; i++)
+{
+app.data[i].removeAttribute("onclick");
+}
+app.finalist = 0;
+app.counter = 0;
+app.array1 = [];
+app.array2 = [];
+app.array3 = [];
+}
+
+
+
+app.start = function()
+{
+app.data = document.getElementsByTagName("td");
+var i;
+for(i=0; i<app.data.length; i++)
+{
+app.data[i].setAttribute("onclick", "app.compare(this.innerHTML)");
+app.data[i].setAttribute("width", "36");
+app.data[i].setAttribute("height", "36");
+}
+}
+
+app.startgame = function()
+{
+var x = prompt("Enter a challenging word?");
+if(x.length > 0)
+{
+app.start();
+app.newword(x);
+}
+}
+
+
+         
+      </script>
+   </head>
+   <body>
+<button onclick="app.startgame()">Start Game</button>
+<table id="table">
+<tr>
+<td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td>
+<tr>
+<td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td>
+</tr>
+<td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td>
+</tr>
+</table>
+<span id="id01"></span>
+<br />
+<span id="id02"></span>
+
+
+   </body>
+</html>
